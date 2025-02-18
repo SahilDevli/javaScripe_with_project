@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Page</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            background-color: rgb(11, 11, 11);
+            color: rgb(211, 211, 211);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        body #text{
+            padding: 10px;
+            font-size: medium;
+            width: 500px;
+            height: 250px;
+            resize: none;
+            background-color: black;
+            color: white;
+        }
+        body button{
+            font-size: medium;
+            padding: 10px 20px;
+            /* border: 0.5px solid gray; */
+            background-color: black;
+            color: white;
+            width: 250px;
+        }
+        section{
+            font-size: medium;
+            border: 1px solid white;
+            overflow-y: scroll;
+            height: 200px;
+            width: 500px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button id="create">Create New</button>
+
+</body>
+<script>
+    // create element in html page on button click
+
+const button = document.getElementById('create');
+
+button.addEventListener('click',()=>{
+    const newElement = document.createElement('div');
+    newElement.style.color = 'white';
+    newElement.innerHTML = 'New';
+    newElement.className="new div";
+
+    document.body.appendChild(newElement);
+    console.log(`new elemnt created having content:`);
+});
+</script>
+</html>

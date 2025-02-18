@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            height: 90vh;
+            background-color: black;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        form{
+            /* border: 1px solid red; */
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+            height: 500px;
+            background-color: rgb(37, 37, 37);
+            border-radius: 20px;
+        }
+        form .input_sec{
+            color: white;
+            font-size: medium;
+            padding: 10px;
+            width: 300px;
+            height: 30px;
+            border-radius: 10px;
+            background-color: rgb(52, 52, 52);
+        }
+        form button{
+            color: white;
+            width: 150px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgb(52, 52, 52);
+            font-size: larger;
+            
+        }
+        .profile{
+            /* border: 1px solid blue; */
+            background-color: rgb(37, 37, 37);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+            height: 500px;
+            color: rgb(219, 219, 219);
+        }
+        .profile p{
+            padding: 10px;
+            width: 300px;
+            height: 30px;
+            border-radius: 10px;
+            background-color: rgb(52, 52, 52);
+
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <input type="text" class="input_sec" placeholder="Name" id="input_name">
+        <input type="number" class="input_sec" placeholder="age" id="input_age">
+        <input type="email" class="input_sec" placeholder="Email" id="input_email">
+        <button id="submit">Submit</button>
+    </form>
+
+    <div class="profile">
+        <h2>Profile</h2>
+        <p id="name"></p>
+        <p id="age"></p>
+        <p id="email"></p>
+    </div>
+</body>
+<script>
+    const in_name = document.getElementById("input_name");
+    const in_age = document.getElementById("input_age");
+    const in_email = document.getElementById("input_email");
+    const btn = document.querySelector("#submit");
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const name = in_name.value;
+        const age = in_age.value;
+        const email = in_email.value;
+
+        if(name === "" || age === "" || email === ""){
+            alert("All fields are required");
+            return;
+        }
+        if(isNaN(age)){
+            alert("Age should be a number");
+            return;
+        }
+        if(!email.includes("@")){
+            alert("Please enter a valid email");
+            return;
+        }
+        if(age < 1 || age > 100){
+            alert("Please enter a valid age");
+            return;
+        }
+
+        document.getElementById("name").textContent = `${name}`;
+        document.getElementById("age").textContent = `${age}`;
+        document.getElementById("email").textContent = `${email}`;
+
+        in_name.value = "";
+        in_age.value = "";
+        in_email.value = "";
+    });
+
+
+</script>
+</html>
