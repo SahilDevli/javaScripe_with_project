@@ -1,0 +1,93 @@
+<!-- local storage practice -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: black;
+            height: 100vh;
+            width: 99.7vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            flex-direction: column;
+            gap: 100px;
+        }
+        body #value{
+            font-family: Arial, sans-serif;
+            font-size: medium;
+            border-radius: 5px;
+            padding: 5px;
+            height: 40px;
+            width: 300px;
+        }
+        body button{
+            font-size: medium;
+            height: 40px;
+            width: 200px;
+            padding: 5px;
+            background-color: rgb(255, 255, 255);
+            cursor: pointer;
+            border: none;
+        }
+        body div{
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            font-family: Arial, sans-serif;
+            font-size: medium;
+            border-radius: 5px;
+            height: 100px;
+            width: 700px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Enter text" id="value"></form>
+    <button class="submit">Store</button>
+    <button id="get_val">Show localStorage</button>
+    <div id="localStorage_values"></div>
+</body>
+
+<script>
+    const value = document.getElementById("value");
+    const btn = document.querySelector(".submit");
+    let val_count = localStorage.getItem("val_count") ? parseInt(localStorage.getItem("val_count")) : 1; // Fetch stored count
+
+    btn.addEventListener("click", () => {
+        let text = value.value.trim(); 
+
+        if (text !== "") {
+            localStorage.setItem(`value${val_count}`, text);
+            val_count++;
+            localStorage.setItem("val_count", val_count); // Update stored count
+            value.value = ""; 
+        } else {
+            alert("Please enter some text before saving.");
+        }
+    });
+
+    const getval = document.getElementById("getval");
+    getval.addEventListener("click", () => {
+        let displayDiv = document.getElementById("localStorage_values");
+        displayDiv.innerHTML = ""; // Clear previous values
+
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if (key.startsWith("value")) { // Only fetch stored "value" keys
+                let storedValue = localStorage.getItem(key);
+                displayDiv.innerHTML += `<p>${key}: ${storedValue}</p>`;
+            }
+        }
+    });
+</script>
+
+</html>
