@@ -1,0 +1,213 @@
+<!-- 3 in one -> Theme changer, BMI Calculator, OTP generator -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme changer, BMI Calculator, add and remove cards</title>
+    <style>
+        body{
+            background-color: black;
+            width: 99.7vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        /* Theme changer css */
+        body .themes{
+            /* border: 1px solid rgb(155, 155, 155); */
+            border-radius: 30px;
+            background-color: rgba(73, 73, 73, 0.589);
+            width: 300px;
+            height: 50px;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        body .themes button{
+            border: 0.5px solid white;
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+        }
+        body .themes button:hover{
+            cursor: pointer;
+        }
+        body .themes .black{
+            background-color: black;
+        }
+        body .themes .white{
+            background-color: white;
+        }
+        body .themes .purple{
+            background-color: rgb(138, 43, 226);
+        }
+
+        /* BMI css */
+        body .BMI{
+            border: 1px solid rgb(102, 102, 102);
+            background-color: rgba(119, 119, 119, 0.42);
+            border-radius: 20px;
+            height: 400px;
+            width: 300px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        body .BMI .inputs{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+
+        }
+        body .BMI .inputs input{
+            height: 50px;
+            width: 100px;
+            font-size: medium;
+            padding: 1px;
+            background-color: rgba(31, 31, 31, 0);
+            color: rgb(255, 255, 255);
+        }
+        body .BMI .output{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+        body .BMI .output button{
+            height: 50px;
+            width: 100px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: medium;
+        } 
+        body .BMI .output p{
+            height: 50px;
+            width: 100px;
+            font-size: medium;
+            /* background-color: black; */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }  
+        
+        /* otp generator*/
+        body .OTP{
+            border: 1px solid rgb(102, 102, 102);
+            background-color: rgba(119, 119, 119, 0.42);
+            border-radius: 20px;
+            height: 200px;
+            width: 300px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        body .OTP p{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.429);
+            color: black;
+            font-size: medium;
+            font-family:sans-serif;
+        }
+        body .OTP button{
+            height: 40px;
+            width: 130px;
+            font-size: medium;
+            font-family: sans-serif;
+            background-color: rgba(203, 203, 203, 0.658);
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="themes">
+        <button class="black"></button>
+        <button class="white"></button>
+        <button class="purple"></button>
+    </div>
+
+    <div class="BMI" id="BMI">
+
+        <div class="inputs">
+            <input type="number" id="weight" placeholder="Weight (kg)">
+            <input type="number" id="height" placeholder="Height (cm)">
+        </div>
+
+        <div class="output">
+            <button id="calculate">Calculate</button>
+            <p id="result" title="result"></p>
+        </div>
+
+    </div>
+
+    <div class="OTP">
+        <p id="generated_otp"></p>
+        <button id="generate">Get OTP</button>
+    </div>
+
+
+</body>
+
+<script>
+    // Theme changer
+    const themes = document.querySelectorAll('.themes button');
+    console.log(themes);
+
+    themes.forEach(theme => {
+        theme.addEventListener('click', () => {
+            document.querySelector("body").style.backgroundColor = theme.className;
+        });
+    });
+
+    // BMI Calculator
+    const calculate = document.getElementById('calculate');
+    const weight = document.getElementById('weight');
+    const height = document.getElementById('height');
+    const result = document.getElementById('result');
+    calculate.addEventListener('click', () => {
+        const w = parseFloat(weight.value);
+        const h = parseFloat(height.value) / 100;
+        const bmi = w / (h * h);
+
+        if (isNaN(bmi)) {
+            result.textContent = 'Invalid input!';
+        } else {
+            result.textContent = `BMI: ${bmi.toFixed(2)}`;
+        }
+        if(bmi > 17 && bmi < 22){
+            document.getElementById('BMI').style.borderColor = "Green";
+            alert("You are fit 😃");
+        }else{
+            document.getElementById('BMI').style.borderColor = "red";
+            alert("You are not fit 💩");
+        }
+    });
+
+    // OTP generator
+document.getElementById('generate').addEventListener('click', () =>{
+    let otp = '';
+    for(let i=0; i<4; i++){
+        otp += Math.floor(Math.random()*10);
+    }
+    document.getElementById('generated_otp').innerHTML = otp;
+});
+
+
+</script>
+
+</html>
