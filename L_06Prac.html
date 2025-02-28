@@ -1,0 +1,68 @@
+<!-- project demostration of async js -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asyc JS</title>
+    <style>
+        body{
+            background-color: rgb(53, 53, 53);
+            color: white;
+        }
+        body button{
+            height: 40px;
+            width: 120px;
+            border-radius: 5px;
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sync JS</h2>
+    <button id="stop_H">Stop H</button>
+
+    <button id="start_party">Start party</button>
+    <button id="stop_party">Stop party</button>
+</body>
+<script>
+    // setTimeout() ... make function wait for perticular amount of time than call it back  [function provide by web api]
+    setTimeout(function(){
+        console.log("Executed after 3 seconds");
+    }, 3000); // 3000ms = 3sec
+
+    const changeheadding = function(){
+        document.querySelector("h2").innerHTML="Async JS"
+    };
+    const change = setTimeout(changeheadding,5000);
+
+    // clearTimeout()
+    document.querySelector("#stop_H").addEventListener('click',()=>{
+        clearTimeout(change);
+        console.log("Stoped");
+    })
+
+    // setInterval
+
+    let randomColor = function(){
+        let hexcode = "0123456789ABCDEF";
+        let color = "#"; // Hex color should start with '#'
+        for(let i = 0; i < 6; i++){
+            color += hexcode[Math.floor(Math.random() * 16)];
+        }
+        document.querySelector('body').style.backgroundColor = color;
+    };
+
+    let party;
+    document.getElementById('start_party').addEventListener('click', () => {
+        party = setInterval(randomColor, 100);
+    });
+
+    document.getElementById('stop_party').addEventListener('click', () => {
+        clearInterval(party); // Fixed: Use clearInterval() instead of clearTimeout()
+        console.log("Party Stopped");
+    });
+
+
+</script>
+</html>
